@@ -83,12 +83,15 @@ jobs:
         if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
         run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/aws/deploy.yaml
 
-      - name: Download and Install Istio
+      - name: Download Istio CLI
+        if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
+        run: curl -L https://istio.io/downloadIstio | sh -
+
+      - name: Add istioctl to Path
         if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
         run: |
-          curl -L https://istio.io/downloadIstio | sh -
-          export PATH="$PATH:$PWD/istio-*/bin"
-          istioctl install --set profile=demo -y
+          echo "export PATH=$PWD/istio-*/bin:$PATH" >> $GITHUB_ENV
+
 
       - name: Label Namespace for Istio Sidecar Injection
         if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
