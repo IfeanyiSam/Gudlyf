@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vprofileapp
+  namespace: dev
+spec:
+  hosts:
+  - vprofileapp.dev.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: vprofileapp
+        subset: v1
+      weight: 90
+    - destination:
+        host: vprofileapp
+        subset: v2
+      weight: 10
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: vprofileapp
+  namespace: dev
+spec:
+  host: vprofileapp
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
