@@ -4,13 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - terraform_files/**
-  pull_request:
-    branches:
-      - main
-    paths:
-      - terraform_files/**
+    #paths:
+    #  - terraform_files/**
 
 env: 
   # Credentials for AWS Deployment
