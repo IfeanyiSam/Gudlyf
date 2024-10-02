@@ -87,7 +87,7 @@ jobs:
         if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
         run: |
           curl -L https://istio.io/downloadIstio | sh -
-          export PATH=$PWD/istio-*/bin:$PATH
+          export PATH="$PATH:$PWD/istio-*/bin"
           istioctl install --set profile=demo -y
 
       - name: Label Namespace for Istio Sidecar Injection
