@@ -1,11 +1,14 @@
 name: Gudlyf_IAC
 
-on: 
+on:
   push:
     branches:
       - main
-    #paths:
-    #  - terraform_files/**
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
 
 env: 
   # Credentials for AWS Deployment
