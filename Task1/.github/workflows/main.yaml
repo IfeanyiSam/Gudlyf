@@ -27,7 +27,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./terraform_files
+        working-directory: .Task1/terraform_files
 
     steps:
       - name: Checkout Source Code
