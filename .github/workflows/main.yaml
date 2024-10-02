@@ -27,7 +27,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./Gudlyf/terraform_files
+        working-directory: ./terraform_files
 
     steps:
       - name: Checkout Source Code
@@ -218,4 +218,5 @@ jobs:
       - name: Rollback on Failure
         if: failure() # Check if the previous step failed
         run: kubectl rollout undo deployment vprofileapp -n ${{ env.ENVIRONMENT }}
+##
 ##
