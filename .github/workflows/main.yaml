@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Terraform 
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.9.6
 
@@ -91,7 +91,7 @@ jobs:
         if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
         run: |
           echo "export PATH=$PWD/istio-*/bin:$PATH" >> $GITHUB_ENV
-
+          istioctl install --set profile=demo -y
 
       - name: Label Namespace for Istio Sidecar Injection
         if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
