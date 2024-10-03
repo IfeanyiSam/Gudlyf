@@ -204,7 +204,7 @@ jobs:
       - name: Canary Deployment with Istio
         run: |
           # Apply Istio virtual services and destination rules for canary deployment
-          kubectl apply -f ./kubernetes/istio-canary-deployment.yaml
+          kubectl apply -f ./kubernetes/vpro-app/istio-canary-deployment.yaml
 
       - name: Rollback on Failure
         if: failure()
