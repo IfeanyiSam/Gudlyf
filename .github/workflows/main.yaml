@@ -1,9 +1,9 @@
 name: Gudlyf_IAC
 
 on:
-  push:
-    branches:
-      - main
+  #push:
+    #branches:
+     # - main
   pull_request:
     branches:
       - main
@@ -139,11 +139,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
 
-      - name: Security Scan with Trivy
-        uses: aquasecurity/trivy-action@master
-        continue-on-error: true
-        with:
-          image-ref: ${{ env.ECR_REPOSITORY }}:latest
 
   BUILD_AND_PUBLISH:
     needs: Testing
@@ -164,6 +159,12 @@ jobs:
           daemon_off: false
           dockerfile: ./Dockerfile
           context: ./
+
+      - name: Security Scan with Trivy
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+         image-ref: ${{ env.ECR_REPOSITORY }}:latest
 
 
   DeployToEKS:
